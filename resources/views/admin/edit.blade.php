@@ -21,6 +21,16 @@
         @method('PUT')
         <div class="mb-3">
             <label class="form-label">
+                Tipo
+            </label>
+            <select class="form-control" name="type_id">
+                @foreach ($types as $type)                  
+                    <option value="{{$type->id}}">{{$type->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">
                 Nome progetto
             </label>
             <input type="text" class="form-control @error('Nome_progetto') is-invalid @enderror" name="Nome_progetto" value="{{old('Nome_progetto') ?? $project->Nome_progetto}}">
