@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Exists;
@@ -29,7 +30,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        return view('admin.create', ['types' => Type::all()]);
     }
 
     /**
@@ -41,9 +42,9 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
         $request->validate(
             [
+                'type_id' => 'required',
                 'Nome_progetto' => 'required|string|min:2|max:150',
                 'Descrizione_progetto' => 'required|string|min:10',
                 'Data_inizio_progetto' => 'required',
@@ -70,6 +71,7 @@ class ProjectController extends Controller
         );
 
         $newProject = new Project();
+        $newProject->type_id = $data['type_id'];
         $newProject->Nome_progetto = $data['Nome_progetto'];
         $newProject->Descrizione_progetto = $data['Descrizione_progetto'];
         $newProject->Data_inizio_progetto = $data['Data_inizio_progetto'];
@@ -108,7 +110,8 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $project = Project::findOrFail($id);
-        return view('admin.edit', compact('project'));
+        $types = Type::all();
+        return view('admin.edit', compact('project', 'types'));
     }
 
     /**
@@ -124,6 +127,7 @@ class ProjectController extends Controller
 
         $request->validate(
             [
+                'type_id' => 'required',
                 'Nome_progetto' => 'required|string|min:2|max:150',
                 'Descrizione_progetto' => 'required|string|min:10',
                 'Data_inizio_progetto' => 'required',
@@ -150,6 +154,7 @@ class ProjectController extends Controller
         );
 
         $newProject = Project::findOrFail($id); //Dato prima di essere aggiornato
+        $newProject->type_id = $data['type_id'];
         $newProject->Nome_progetto = $data['Nome_progetto'];
         $newProject->Descrizione_progetto = $data['Descrizione_progetto'];
         $newProject->Data_inizio_progetto = $data['Data_inizio_progetto'];
