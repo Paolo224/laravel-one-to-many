@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
+
+    //dipendente da project
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 }
