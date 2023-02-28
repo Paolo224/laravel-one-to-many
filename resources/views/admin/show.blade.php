@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card text-center">
                 <div class="card-header">
-                    {{$project->Nome_sviluppatore}}
+                    {{$project->Nome_sviluppatore}} - {{$project->type->name}}
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{$project->Nome_progetto}}</h5>
