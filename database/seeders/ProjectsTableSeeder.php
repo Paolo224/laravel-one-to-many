@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\storage;
@@ -17,8 +18,10 @@ class ProjectsTableSeeder extends Seeder
      */
     public function run(faker $faker)
     {
+
         for ($i = 0; $i < 10; $i++) {
             $NewProject = new Project();
+            $NewProject->type_id = Type::inRandomOrder()->first()->id;
             $NewProject->Nome_progetto = $faker->word(3);
             $NewProject->Descrizione_progetto = $faker->paragraph();
             $NewProject->Data_inizio_progetto = $faker->dateTime();
