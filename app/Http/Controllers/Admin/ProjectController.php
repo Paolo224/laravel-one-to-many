@@ -30,7 +30,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.create', ['types' => Type::all()]);
+        $types = Type::all();
+        return view('admin.create', compact('types'));
     }
 
     /**
@@ -175,7 +176,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, Project $project)
+    public function destroy($id)
     {
         $project = Project::findOrFail($id);
         $project->delete();
